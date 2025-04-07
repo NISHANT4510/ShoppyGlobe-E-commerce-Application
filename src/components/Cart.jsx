@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import CartItem from './CartItem';
-import { Link } from 'react-router-dom';
 import { selectCartItems, selectCartTotal } from '../store/cartSlice';
 
 const Cart = () => {
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
 
@@ -30,7 +31,10 @@ const Cart = () => {
         <div className="text-xl font-bold">
           Total: ${cartTotal.toFixed(2)}
         </div>
-        <button className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+        <button 
+          onClick={() => navigate('/checkout')}
+          className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+        >
           Proceed to Checkout
         </button>
       </div>

@@ -1,30 +1,31 @@
 import './index.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import ProductList from './components/ProductList'
-import ProductDetailPage from './components/ProductDetailPage'
-import Cart from './components/Cart'
-import NotFound from './components/NotFound'
+import { Suspense } from 'react'
+import { BrowserRouter, useRoutes } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
+import LoadingSpinner from './components/LoadingSpinner'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
+import { routes } from './routes/routes'
+
+const AppRoutes = () => {
+  const element = useRoutes(routes);
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      {element}
+    </Suspense>
+  );
+}
 
 function App() {
   return (
     <ErrorBoundary>
       <Provider store={store}>
         <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<ProductList />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AppRoutes />
         </BrowserRouter>
       </Provider>
     </ErrorBoundary>
   )
 }
 
-export default App;
+export default App

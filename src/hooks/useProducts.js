@@ -1,57 +1,29 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+  fetchProducts, 
+  setSearchTerm, 
+  selectFilteredProducts,
+  selectSearchTerm 
+} from '../store/productsSlice';
 
 export const useProducts = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const fetchProducts = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetch('https://dummyjson.com/products');
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      if (!data.products || !Array.isArray(data.products)) {
-        throw new Error('Invalid data format received from server');
-      }
-      
-      setProducts(data.products);
-    } catch (err) {
-      setError(err.message || 'Failed to fetch products');
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const dispatch = useDispatch();
+  const products = useSelector(selectFilteredProducts);
+  const searchTerm = useSelector(selectSearchTerm);
+  const loading = useSelector(state => state.products.loading);
+  const error = useSelector(state => state.products.error);
 
   useEffect(() => {
-    fetchProducts();
-  }, [fetchProducts]);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
-  const filteredProducts = useMemo(() => {
-    if (!searchTerm) return products;
-    
-    const searchLower = searchTerm.toLowerCase();
-    return products.filter(product => 
-      (product.title?.toLowerCase() || '').includes(searchLower) ||
-      (product.description?.toLowerCase() || '').includes(searchLower) ||
-      (product.brand?.toLowerCase() || '').includes(searchLower)
-    );
-  }, [products, searchTerm]);
-
-  return { 
-    products: filteredProducts, 
-    loading, 
-    error, 
-    refetch: fetchProducts,
+  return {
+    products,
+    loading,
+    error,
     searchTerm,
-    setSearchTerm
+    setSearchTerm: term => dispatch(setSearchTerm(term)),
+    refetch: () => dispatch(fetchProducts())
   };
 };

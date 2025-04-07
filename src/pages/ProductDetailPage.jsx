@@ -1,19 +1,29 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useProduct } from '../hooks/useProduct';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProductById, selectSelectedProduct, selectProductLoading, selectProductError } from '../store/productsSlice';
 import { addToCart } from '../store/cartSlice';
+import ErrorMessage from '../components/ErrorMessage';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const { product, loading, error } = useProduct(id);
   const dispatch = useDispatch();
+  const product = useSelector(selectSelectedProduct);
+  const loading = useSelector(selectProductLoading);
+  const error = useSelector(selectProductError);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchProductById(id));
+    }
+  }, [id, dispatch]);
 
   if (loading) {
     return <div className="container mx-auto p-4">Loading...</div>;
   }
 
   if (error) {
-    return <div className="container mx-auto p-4 text-red-500">{error}</div>;
+    return <ErrorMessage error={error} />;
   }
 
   if (!product) {
