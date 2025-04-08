@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 const ProductList = lazy(() => import('../components/ProductList'));
 const ProductDetailPage = lazy(() => import('../pages/ProductDetailPage'));
 const Cart = lazy(() => import('../components/Cart'));
-const CheckoutPage = lazy(() => import('..//pages/CheckoutPage'));
+const CheckoutPage = lazy(() => import('../pages/CheckoutPage'));
 const NotFound = lazy(() => import('../components/NotFound'));
 
 export const routes = [

@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+/**
+ * Async thunk for fetching all products
+ * Makes API call to dummy products endpoint
+ */
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async () => {
@@ -10,6 +14,10 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+/**
+ * Async thunk for fetching single product details
+ * @param {string} id - Product ID to fetch
+ */
 export const fetchProductById = createAsyncThunk(
   'products/fetchProductById',
   async (id) => {
@@ -19,16 +27,19 @@ export const fetchProductById = createAsyncThunk(
   }
 );
 
+/**
+ * Products slice for managing product state and search functionality
+ */
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    items: [],
-    searchTerm: '',
-    loading: false,
-    error: null,
-    selectedProduct: null,
-    productLoading: false,
-    productError: null
+    items: [],          // All products
+    searchTerm: '',     // Current search query
+    loading: false,     // Products loading state
+    error: null,        // Products error state
+    selectedProduct: null,  // Single product details
+    productLoading: false, // Single product loading state
+    productError: null    // Single product error state
   },
   reducers: {
     setSearchTerm: (state, action) => {
@@ -68,6 +79,11 @@ export const { setSearchTerm } = productsSlice.actions;
 
 export const selectProducts = state => state.products.items;
 export const selectSearchTerm = state => state.products.searchTerm;
+
+/**
+ * Filter products based on search term
+ * Searches in title, description, and brand
+ */
 export const selectFilteredProducts = state => {
   const products = state.products.items;
   const searchTerm = state.products.searchTerm.toLowerCase();

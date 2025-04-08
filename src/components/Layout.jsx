@@ -1,12 +1,16 @@
 import { Outlet } from 'react-router-dom'
 import Header from './Header'
 
+/**
+ * Layout component providing consistent page structure
+ * Includes header and main content area
+ */
 const Layout = () => {
   return (
     <>
-      <Header />
+      <Header /> {/* Global navigation header */}
       <main>
-        <Outlet />
+        <Outlet /> {/* Render child routes */}
       </main>
     </>
   )
