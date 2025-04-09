@@ -93,7 +93,7 @@ npm run dev
 
 Experience ShoppyGlobe in action: [Live Demo](https://shoppy-globe-e-commerce-application-7ttk.vercel.app/)
 
-Note: The demo is hosted on Netlify and may take a few seconds to load initially.
+Note: The demo is hosted on Vercel and may take a few seconds to load initially.
 
 ## Application Architecture
 
