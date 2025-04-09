@@ -1,4 +1,3 @@
-write proffessional readme acc to my project
 # ShoppyGlobe E-commerce Application
 
 A modern React e-commerce application built with Redux Toolkit for state management. ShoppyGlobe provides a seamless shopping experience with features like:
