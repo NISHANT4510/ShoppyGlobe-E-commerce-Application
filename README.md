@@ -76,7 +76,7 @@ The application demonstrates best practices in React development including:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/ShoppyGlobe-E-commerce-Application.git
+git clone https://github.com/NISHANT4510/ShoppyGlobe-E-commerce-Application.git
 ```
 
 2. Install dependencies
@@ -91,7 +91,7 @@ npm run dev
 
 ## Live Demo
 
-Experience ShoppyGlobe in action: [Live Demo](https://shoppyglobe.netlify.app)
+Experience ShoppyGlobe in action: [Live Demo](https://shoppy-globe-e-commerce-application-7ttk.vercel.app/)
 
 Note: The demo is hosted on Netlify and may take a few seconds to load initially.
 
